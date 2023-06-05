@@ -1,0 +1,14 @@
+#include <bits/stdc++.h> 
+long long maxSubarraySum(int arr[], int n)
+{
+    long long int sum=0;
+    long long int maxi = INT_MIN;
+    for(int i=0;i<n;i++){
+        sum+=arr[i];
+        if(sum<0){
+            sum=0;
+        }
+        maxi=max(sum,maxi);  /*according to the requirement of the test case maxi can come either at 8th line or at this line itself(in leetcode it comes on 8th line)
+    }
+    return maxi;
+}
