@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+void solve(vector<vector<int>>& maze, vector<vector<int>>& ans, vector<int> vis, int n, int x, int y){
+  if(x<0 || x>=n || y<0 || y>=n || maze[x][y]==0 || vis[x*n + y]==1){
+    return ;
+  }
+  if(x==n-1 && y==n-1){
+    vis[x*n + y]=1;
+    ans.push_back(vis);
+    return ;
+  }
+  vis[x*n + y]=1;
+  solve(maze, ans, vis, n, x+1, y);
+  solve(maze, ans, vis, n, x-1, y);
+  solve(maze, ans, vis, n, x, y+1);
+  solve(maze, ans, vis, n, x, y-1);
+  vis[x*n + y]=0;
+
+}
+vector<vector<int> > ratInAMaze(vector<vector<int> > &maze, int n){
+  vector<vector<int>> ans;
+  vector<int>vis(n*n, 0);
+  solve(maze, ans, vis, n, 0, 0);
+  return ans;
+}
