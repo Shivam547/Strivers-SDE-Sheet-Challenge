@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+void solve(vector<int>& ans, vector<int> output, vector<int> num, int i){
+    if(i>=num.size()){
+        int sum=0;
+        for(int j=0;j<output.size();j++){
+            sum+=output[j];
+        }
+        ans.push_back(sum);
+        return;
+    }
+    // excluding
+    solve(ans, output, num, i+1);
+    // including
+    output.push_back(num[i]);
+    solve(ans, output, num, i+1);
+}
+vector<int> subsetSum(vector<int> &num)
+{
+    vector<int> ans;
+    vector<int> output;
+    solve(ans, output, num, 0);
+    sort(ans.begin(), ans.end());
+    return ans;
+}
