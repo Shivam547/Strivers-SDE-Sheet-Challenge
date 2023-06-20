@@ -1,0 +1,13 @@
+#include <bits/stdc++.h>
+//competitive programming application
+int modularExponentiation(int x, int n, int m) {
+	int ans=1;
+	while(n>0){
+		if(n&1){
+			ans=(ans*1LL*x)%m;
+		}
+		x=(x*1LL*x)%m;
+		n=n>>1;
+	}
+	return ans;
+}
