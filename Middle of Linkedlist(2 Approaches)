@@ -1,0 +1,39 @@
+Approach 1->TC=O(N), SC=O(1)
+int getlength(Node* head){
+    int len=0;
+    while(head!=NULL){
+        head=head->next;
+        len++;
+    }
+    return len;
+}
+Node *findMiddle(Node *head) {
+    int len=getlength(head);
+    int ans=len/2;
+    int cnt=0;
+    while(cnt<ans){
+        head=head->next;
+        cnt++;
+    }
+    return head;
+}
+Approach 2 (Optimised)-> TC=O(N/2)->O(N) , SC=O(1)
+Node *findMiddle(Node *head) {
+    
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    if(head->next->next==NULL){
+        return head->next;
+    }
+    Node* fast = head->next;
+    Node* slow = head;
+    while(fast!=NULL){
+        fast=fast->next;
+        if(fast!=NULL){
+            fast=fast->next;
+        }
+        slow=slow->next;
+    }
+    return slow;
+}
