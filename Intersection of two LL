@@ -1,0 +1,41 @@
+Approach1->
+#include<bits/stdc++.h>
+Node* findIntersection(Node *firstHead, Node *secondHead)
+{
+    Node* temp1=firstHead;
+    Node* temp2=secondHead;
+    unordered_set<Node*>s;
+    while(temp1!=NULL){
+        s.insert(temp1);
+        temp1=temp1->next;
+    }
+    while(temp2!=NULL){
+        if(s.find(temp2)!=s.end()){
+            return temp2;
+        }
+        temp2=temp2->next;
+    }
+    return NULL;
+}
+Approach 2->(But one test is failing don't know why)
+#include<map>
+Node* findIntersection(Node *firstHead, Node *secondHead)
+{
+    if(firstHead==NULL || secondHead==NULL){
+        return NULL;
+    }
+    map<Node*,bool>visited;
+    Node* curr=firstHead;
+    while(curr!=NULL){
+        visited[curr]=true;
+        curr=curr->next;
+    }
+    curr=secondHead;
+    while(curr!=NULL){
+        if(visited[curr]==true){
+            return curr;
+        }
+        curr=curr->next;
+    }
+    return NULL;
+}
