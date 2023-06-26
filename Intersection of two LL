@@ -1,4 +1,38 @@
-Approach1->
+APPROACH-1->GFG CODE
+int intersectPoint(Node* head1, Node* head2)
+{
+    Node* temp1=head1;
+    Node* temp2=head2;
+    int cnt1=0;
+    int cnt2=0;
+    while(temp1!=NULL){
+        cnt1++;
+        temp1=temp1->next;
+    }
+    while(temp2!=NULL){
+        cnt2++;
+        temp2=temp2->next;
+    }
+    temp1=head1;
+    temp2=head2;
+    while(temp1!=NULL && cnt1>cnt2){
+        temp1=temp1->next;
+        cnt1--;
+    }
+    while(temp2!=NULL && cnt2>cnt1){
+        temp2=temp2->next;
+        cnt2--;
+    }
+    while(temp1!=temp2){
+        temp1=temp1->next;
+        temp2=temp2->next;
+    }
+    if(temp1==NULL || temp2==NULL){
+        return -1;
+    }
+    return temp1->data;
+}
+Approach2->(This code will not work for gfg test cases)
 #include<bits/stdc++.h>
 Node* findIntersection(Node *firstHead, Node *secondHead)
 {
@@ -17,7 +51,7 @@ Node* findIntersection(Node *firstHead, Node *secondHead)
     }
     return NULL;
 }
-Approach 2->(But one test is failing don't know why)
+Approach 3->(But one test is failing don't know why)
 #include<map>
 Node* findIntersection(Node *firstHead, Node *secondHead)
 {
