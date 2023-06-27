@@ -1,0 +1,53 @@
+This code can have some changes according to the test cases. This code will work fo the leetcode and codestudio becasue there is not need to reverse the LL but
+as according to the GFG if according to the test case need occurs then we have to create one simple reverse function and reverse both the LL and if needed ans also.
+
+void insertattail(Node* &head, Node* &tail, int d){
+    Node* temp = new Node(d);
+    if(head==NULL){
+        head=temp;
+        tail=temp;
+        return ;
+    }
+    else{
+        tail->next=temp;
+        tail=temp;
+    }
+}
+Node* add(Node* first, Node* second){
+    int carry=0;
+    int digit=0;
+    int sum=0;
+    Node* head=NULL;
+    Node* tail=NULL;
+    while(first!=NULL || second!=NULL || carry!=0){
+        int val1=0;
+        int val2=0;
+        if(first!=NULL){
+            val1=first->data;
+        }
+        if(second!=NULL){
+            val2=second->data;
+        }
+        sum=carry+val1+val2;
+        digit=sum%10;
+        insertattail(head, tail, digit);
+        carry=sum/10;
+        if(first!=NULL){
+            first=first->next;
+        }
+        if(second!=NULL){
+            second=second->next;
+        }
+    }
+    return head;
+}
+Node *addTwoNumbers(Node *num1, Node *num2)
+{
+    Node* temp1=num1;
+    Node* temp2=num2;
+
+    // addition for both linkedlist
+    Node* ans=add(temp1, temp2);
+
+    return ans;
+}
