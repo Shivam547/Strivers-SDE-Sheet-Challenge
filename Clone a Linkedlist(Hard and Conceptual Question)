@@ -1,0 +1,39 @@
+void insertattail(LinkedListNode<int>* &head, LinkedListNode<int>* &tail, int d){
+    LinkedListNode<int>* temp=new LinkedListNode<int>(d);
+    if(head==NULL){
+        head=temp;
+        tail=temp;
+        return ;
+    }
+    else{
+        tail->next=temp;
+        tail=temp;
+    }
+}
+LinkedListNode<int> *cloneRandomList(LinkedListNode<int> *head)
+{
+    LinkedListNode<int>* clonehead=NULL;
+    LinkedListNode<int>* clonetail=NULL;
+    LinkedListNode<int>* temp=head;
+    while(temp!=NULL){
+        int val=temp->data;
+        insertattail(clonehead, clonetail, val);
+        temp=temp->next;
+    }
+    unordered_map<LinkedListNode<int>*, LinkedListNode<int>*>m;
+    LinkedListNode<int>* originalnode=head;
+    LinkedListNode<int>* clonenode=clonehead;
+    while(originalnode!=NULL){
+        m[originalnode]=clonenode;
+        originalnode=originalnode->next;
+        clonenode=clonenode->next;
+    }
+    originalnode=head;
+    clonenode=clonehead;
+    while(originalnode!=NULL){
+        clonenode->random=m[originalnode->random];
+        originalnode=originalnode->next;
+        clonenode=clonenode->next;
+    }
+    return clonehead;
+}
