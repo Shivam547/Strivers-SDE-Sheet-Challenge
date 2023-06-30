@@ -1,0 +1,39 @@
+#include <bits/stdc++.h> 
+bool ispossible(vector<int> time, int n, int m, long long int mid){
+	long long int days=1;
+	long long int chapters=0;
+	for(int i=0;i<m;i++){
+		if(chapters+time[i]<=mid){
+			chapters+=time[i];
+		}
+		else{
+			days++;
+			if(days>n || time[i]>mid){
+				return false;
+			}
+			chapters=time[i];
+		}
+	}
+	return true;
+}
+long long ayushGivesNinjatest(int n, int m, vector<int> time) 
+{
+	long long int sum=0;	
+	for(int i=0;i<m;i++){
+		sum+=time[i];
+	}
+	long long int s=0;
+	long long int e=sum;
+	long long int ans=-1;
+	while(s<=e){
+		long long int mid=s+(e-s)/2;
+		if(ispossible(time, n, m, mid)){
+			ans=mid;
+			e=mid-1;
+		}
+		else{
+			s=mid+1;
+		}
+	}
+	return ans;
+}
