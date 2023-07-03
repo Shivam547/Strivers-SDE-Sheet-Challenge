@@ -1,0 +1,19 @@
+pair<int, int>diameter(TreeNode<int>* root){
+    if(root==NULL){
+        pair<int, int>p=make_pair(0, 0);
+        return p;
+    }
+    pair<int, int>left=diameter(root->left);
+    pair<int, int>right=diameter(root->right);
+    int leftans=left.first;
+    int rightans=right.first;
+    int height=left.second + 1 + right.second;
+    pair<int, int>ans;
+    ans.first=max(leftans, max(rightans, height));
+    ans.second=max(left.second, right.second)+1;
+    return ans;
+}
+int diameterOfBinaryTree(TreeNode<int> *root)
+{
+	return (diameter(root).first)-1;
+}
