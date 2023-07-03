@@ -1,0 +1,23 @@
+pair<bool, int>balance(BinaryTreeNode<int>* root){
+    if(root==NULL){
+        pair<bool, int>p=make_pair(1, 0);
+        return p;
+    }
+    pair<bool, int>left=balance(root->left);
+    pair<bool, int>right=balance(root->right);
+    bool l=left.first;
+    bool r=right.first;
+    int h=abs(left.second-right.second)<=1;
+    pair<bool, int>ans;
+    ans.second=max(left.second, right.second)+1;
+    if(l && r && h){
+        ans.first=1;
+    }
+    else{
+        ans.first=0;
+    }
+    return ans;
+}
+bool isBalancedBT(BinaryTreeNode<int>* root) {
+    return balance(root).first;
+}
