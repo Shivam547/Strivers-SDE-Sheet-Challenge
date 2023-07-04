@@ -1,0 +1,62 @@
+void traverseleft(TreeNode<int>* root, vector<int>& ans){
+    if(root==NULL){
+        return ;
+    }
+    if(root->left==NULL && root->right==NULL){
+        return ;
+    }
+    ans.push_back(root->data);
+    if(root->left){
+        traverseleft(root->left, ans);
+    }
+    else{
+        traverseleft(root->right, ans);
+    }
+}
+void traverseleaf(TreeNode<int>* root, vector<int>& ans){
+    if(root==NULL){
+        return ;
+    }
+    if(root->left==NULL && root->right==NULL){
+        ans.push_back(root->data);
+        return ;
+    }
+    traverseleaf(root->left, ans);
+    traverseleaf(root->right, ans);
+}
+void traverseright(TreeNode<int>* root, vector<int>& ans){
+    if(root==NULL){
+        return ;
+    }
+    if(root->left==NULL && root->right==NULL){
+        return ;
+    }
+    if(root->right){
+        traverseright(root->right, ans);
+    }
+    else{
+        traverseright(root->left, ans);
+    }
+    ans.push_back(root->data);
+}
+vector<int> traverseBoundary(TreeNode<int>* root){
+    vector<int>ans;
+    if(root==NULL){
+        return ans;
+    }
+    ans.push_back(root->data);
+    
+    // left part
+    traverseleft(root->left, ans);
+
+    // leaf part
+    // leftsubtree
+    traverseleaf(root->left, ans);
+    // rightsubtree
+    traverseleaf(root->right, ans);
+
+    // right part
+    traverseright(root->right, ans);
+
+    return ans;
+}
