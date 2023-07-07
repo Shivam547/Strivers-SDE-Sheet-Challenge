@@ -1,0 +1,26 @@
+//Test case is tricky over here in this question from standard question there is some changes in the code
+int lowestCommonAncestor(TreeNode<int> *root, int x, int y)
+{
+	if(root==NULL){
+        return -1;
+    }
+    if(root->data==x || root->data==y){
+        return root->data;
+    }
+
+    int leftAns=lowestCommonAncestor(root->left, x, y);
+    int rightAns=lowestCommonAncestor(root->right, x, y);
+
+    if(leftAns==-1 && rightAns==-1){
+        return -1;
+    }
+    else if(leftAns!=NULL && rightAns==-1){
+        return leftAns;
+    }
+    else if(leftAns==-1 && rightAns!=-1){
+        return rightAns;
+    }
+    else{
+        return root->data;
+    }
+}
