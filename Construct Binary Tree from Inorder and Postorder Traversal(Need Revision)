@@ -1,0 +1,33 @@
+//Tough hai need revision
+int pos(vector<int>& inOrder, int element, int n){
+      for(int i=0;i<n;i++){
+           if(inOrder[i]==element){
+                return i;
+           }
+      }
+      return -1;
+ }
+TreeNode<int>* solve(vector<int>& postOrder, vector<int>& inOrder, int &index, int instart, int inend, int n){
+     if(index<0 || instart>inend){
+          return NULL;
+     }
+
+     int element=postOrder[index--];
+     TreeNode<int>* root=new TreeNode<int>(element);
+     int position=pos(inOrder, element, n);
+
+     // right
+     root->right=solve(postOrder, inOrder, index, position+1, inend, n);
+     // left
+     root->left=solve(postOrder, inOrder, index, instart, position-1, n);
+
+     return root;
+}
+TreeNode<int>* getTreeFromPostorderAndInorder(vector<int>& postOrder, vector<int>& inOrder) 
+{
+	int n=inOrder.size();
+     int postorderindex=n-1;
+     TreeNode<int>* ans=solve(postOrder, inOrder, postorderindex, 0, n-1, n);
+     
+     return ans;
+}
