@@ -1,0 +1,35 @@
+int length(Node* head){
+    Node* temp=head;
+    int l=0;
+    while(temp!=NULL){
+        l++;
+        temp=temp->next;
+    }
+    return l;
+}
+Node* removeKthNode(Node* head, int K)
+{
+    int size=length(head);
+    int position=size-K+1;
+    Node* temp=head;
+    Node* prev=NULL;
+    if(position==1){
+        Node* curr=head;
+        head=head->next;
+        curr->next=NULL;
+        delete curr;
+    }
+    else{
+        int cnt=1;
+        while(cnt<position){
+            prev=temp;
+            temp=temp->next;
+            cnt++;
+        }
+        prev->next=temp->next;
+        temp->next=NULL;
+        delete temp;
+    }
+    
+    return head;
+}
