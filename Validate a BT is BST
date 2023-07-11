@@ -1,0 +1,15 @@
+bool validate(BinaryTreeNode<int> *root, int low, int high){
+    if(root==NULL){
+        return true;
+    }
+    if(root->data<low | root->data>high){
+        return false;
+    }
+
+    return validate(root->left, low, root->data) && validate(root->right, root->data, high);
+}
+bool validateBST(BinaryTreeNode<int> *root) {
+    int low=INT_MIN;
+    int high=INT_MAX;
+    return validate(root, low, high);
+}
