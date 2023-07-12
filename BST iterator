@@ -1,0 +1,81 @@
+APPROACH -1-> TC-O(1) && SC->O(N)
+class BSTiterator
+{
+    public:
+    vector<int>v;
+    int i=0;
+    void inorder(TreeNode<int>* root){
+        if(root==NULL){
+            return ;
+        }
+        inorder(root->left);
+        v.push_back(root->data);
+        inorder(root->right);
+    }
+    BSTiterator(TreeNode<int> *root)
+    {
+        inorder(root);
+    }
+
+    int next()
+    {
+        if(i<v.size()){
+            return v[i++];
+        }
+        else{
+            return -1;
+        }
+    }
+
+    bool hasNext()
+    {
+        if(i<v.size()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+};
+
+APPROACH 2-> TC-O(1) && SC-O(1)
+class BSTiterator
+{
+    public:
+    stack<int>s;
+    void inorder(TreeNode<int>* root){
+        if(root==NULL){
+            return ;
+        }
+        inorder(root->right);
+        s.push(root->data);
+        inorder(root->left);
+    }
+    BSTiterator(TreeNode<int> *root)
+    {
+        inorder(root);
+        
+    }
+
+    int next()
+    {
+        if(s.empty()){
+            return -1;
+        }
+        else{
+            int x=s.top();
+            s.pop();
+            return x;
+        }
+    }
+
+    bool hasNext()
+    {
+        if(s.empty()){
+            return false;
+        } 
+        else {
+          return true;
+        }
+    }
+};
