@@ -1,0 +1,72 @@
+APPROACH-1> BFS
+class Solution {
+    void bfs(vector<vector<char>>& grid, vector<vector<int>>& vis, int i, int j){
+        vis[i][j]=1;
+        queue<pair<int, int>>q;
+        q.push({i, j});
+        int n=grid.size();
+        int m=grid[0].size();
+        while(!q.empty()){
+            pair<int, int>temp=q.front();
+            int row=temp.first;
+            int col=temp.second;
+            q.pop();
+            for(int nrow=-1;nrow<=1;nrow++){
+                for(int ncol=-1;ncol<=1;ncol++){
+                    int delrow=row+nrow;
+                    int delcol=col+ncol;
+                    if(delrow>=0 && delrow<n && delcol>=0 && delcol<m 
+                    && grid[delrow][delcol]=='1' && !vis[delrow][delcol]){
+                        vis[delrow][delcol]=1;
+                        q.push({delrow, delcol});
+                    }
+                }
+            }
+        }
+    }
+  public:
+    // Function to find the number of islands.
+    int numIslands(vector<vector<char>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>>vis(n, vector<int>(m,0));
+        int cnt=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(!vis[i][j] && grid[i][j]=='1'){
+                    cnt++;
+                    bfs(grid, vis, i, j);
+                }
+            }
+        }
+        return cnt;
+    }
+};
+APPROACH-2> DFS
+void dfs(int **arr, vector<vector<int>>& vis, int row, int col, int n, int m){
+   vis[row][col]=1;
+   for(int delrow=-1;delrow<=1;delrow++){
+      for(int delcol=-1;delcol<=1;delcol++){
+         int nrow=row+delrow;
+         int ncol=col+delcol;
+         if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && !vis[nrow][ncol] && arr[nrow][ncol]==1){
+            dfs(arr, vis, nrow, ncol, n, m);
+         }
+      }
+   }
+}
+
+int getTotalIslands(int** arr, int n, int m)
+{
+   vector<vector<int>>vis(n, vector<int>(m,0));
+   int cnt=0;
+   for(int i=0;i<n;i++){
+      for(int j=0;j<m;j++){
+         if(!vis[i][j] && arr[i][j]==1){
+            cnt++;
+            dfs(arr, vis, i, j, n, m);
+         }
+      }
+   }
+   return cnt;
+}
