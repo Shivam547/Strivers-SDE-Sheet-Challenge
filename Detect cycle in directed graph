@@ -1,0 +1,75 @@
+//APPROACH -1->Using only one visited array
+bool dfscheck(vector<int>& vis, vector<int> adj[], int node){
+  vis[node]=2;
+  // pathvis[node]=1;
+  for(auto it:adj[node]){
+    if(!vis[it]){
+      if(dfscheck(vis, adj, it)){
+        return true;
+      }
+    }
+    else if(vis[it]==2){
+      return true;
+    }
+  }
+  vis[node]=1;
+  return false;
+}
+
+int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+  vector<int>adj[n+1];
+  for(int i=0;i<edges.size();i++){
+    int u=edges[i].first;
+    int v=edges[i].second;
+    adj[u].push_back(v);
+    // adj[v].push_back(u);
+  }
+  vector<int>vis(n+1, 0);
+  // vector<int>pathvis(n+1,0);
+  for(int i=1;i<n+1;i++){
+    if(!vis[i]){
+      if(dfscheck(vis, adj, i)){
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
+
+//APPROACH-2-> using visited and pathvisited array
+bool dfscheck(vector<int>& vis, vector<int> adj[], int node, vector<int>& pathvis){
+  vis[node]=1;
+  pathvis[node]=1;
+  for(auto it:adj[node]){
+    if(!vis[it]){
+      if(dfscheck(vis, adj, it, pathvis)){
+        return true;
+      }
+    }
+    else if(pathvis[it] && vis[it]){
+      return true;
+    }
+  }
+  pathvis[node]=0;
+  return false;
+}
+
+int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+  vector<int>adj[n+1];
+  for(int i=0;i<edges.size();i++){
+    int u=edges[i].first;
+    int v=edges[i].second;
+    adj[u].push_back(v);
+    // adj[v].push_back(u);
+  }
+  vector<int>vis(n+1, 0);
+  vector<int>pathvis(n+1,0);
+  for(int i=1;i<n+1;i++){
+    if(!vis[i]){
+      if(dfscheck(vis, adj, i, pathvis)){
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
