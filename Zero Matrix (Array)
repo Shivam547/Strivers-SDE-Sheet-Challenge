@@ -1,0 +1,23 @@
+#include <bits/stdc++.h> 
+vector<vector<int>> zeroMatrix(vector<vector<int>> &matrix, int n, int m) {
+	vector<pair<int,int>>zeros;
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			if(matrix[i][j]==0){
+				zeros.push_back({i,j});
+			}
+		}
+	}
+
+	for(auto it:zeros){
+		int row=it.first;
+		int col=it.second;
+		for(int i=0;i<m;i++){
+			matrix[row][i]=0;
+		}
+		for(int i=0;i<n;i++){
+			matrix[i][col]=0;
+		}
+	}
+	return matrix;
+}
