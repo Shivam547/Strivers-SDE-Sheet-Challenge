@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+void dfs(vector<int>& vis, vector<int> adj[], stack<int>& s, int node){
+    vis[node]=1;
+    for(auto it:adj[node]){
+        if(!vis[it]){
+            dfs(vis, adj, s, it);
+        }
+    }
+    s.push(node);
+}
+
+void dfs2(vector<int>& vis, vector<vector<int>>& edgesT, int node, vector<int>& output){
+    vis[node]=1;
+    for(auto it:edgesT[node]){
+        if(!vis[it]){
+            dfs2(vis, edgesT, it, output);
+        }
+    }
+    output.push_back(node);
+}
+vector<vector<int>> stronglyConnectedComponents(int n, vector<vector<int>> &edges)
+{
+    vector<int>vis(n,0);
+    stack<int>s;
+    vector<int>adj[n];
+    for(auto it:edges){
+        adj[it[0]].push_back(it[1]);
+    }
+    // for(int i=0;i<n;i++){ /* can't use this format for this question*/
+    //     int u=edges[i][0];
+    //     int v=edges[i][1];
+    //     adj[u].push_back(v);
+    // }
+    for(int i=0;i<n;i++){
+        if(!vis[i]){
+            dfs(vis, adj, s, i);
+        }
+    }
+
+    vector<vector<int>>edgesT(n);
+    for(int i=0;i<n;i++){
+        vis[i]=0;
+        for(auto it:adj[i]){
+            edgesT[it].push_back(i);
+        }
+    }
+
+    vector<vector<int>>ans;
+    while(!s.empty()){
+        int node=s.top();
+        s.pop();
+        vector<int>output;
+        if(!vis[node]){
+            dfs2(vis, edgesT, node, output);
+        }
+        ans.push_back(output);
+    }
+    return ans;
+}
