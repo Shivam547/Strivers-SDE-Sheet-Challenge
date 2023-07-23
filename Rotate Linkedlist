@@ -1,0 +1,25 @@
+Node *rotate(Node *head, int k) {
+     vector<int>v;
+     Node* temp=head;
+     while(temp!=NULL){
+          v.push_back(temp->data);
+          temp=temp->next;
+     }
+     vector<int>res;
+     k=k%v.size();
+     for(int i=0;i<v.size();i++){
+          if(i<k){
+               res.push_back(v[v.size()+i-k]);
+          }
+          else{
+               res.push_back(v[i-k]);
+          }
+     }
+     Node* ans=new Node(res[0]);
+     Node* dummy=ans;
+     for(int i=1;i<res.size();i++){
+          ans->next=new Node(res[i]);
+          ans=ans->next;
+     }
+     return dummy;
+}
