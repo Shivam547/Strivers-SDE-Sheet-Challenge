@@ -1,0 +1,27 @@
+bool symmetric(BinaryTreeNode<int>* r1, BinaryTreeNode<int>* r2){
+    if(r1==NULL && r2==NULL){
+        return 1;
+    }
+    if(r1==NULL && r2!=NULL){
+        return 0;
+    }
+    if(r1!=NULL && r2==NULL){
+        return 0;
+    }
+    bool l=symmetric(r1->left, r2->right);
+    bool r=symmetric(r1->right, r2->left);
+
+    if(l && r && r1->data==r2->data){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+
+}
+bool isSymmetric(BinaryTreeNode<int>* root) {
+	if(root==NULL){
+        return 1;
+    }
+    return symmetric(root->left, root->right);
+}
