@@ -1,0 +1,32 @@
+void connectNodes(BinaryTreeNode< int > *root) {
+    if(root==NULL){
+        return ;
+    }
+    vector<BinaryTreeNode< int >*>level;
+    queue<BinaryTreeNode< int >*>q;
+    q.push(root);
+    q.push(NULL);
+    while(!q.empty()){
+        BinaryTreeNode< int >* temp=q.front();
+        q.pop();
+        if(temp==NULL){
+            int n=level.size();
+            for(int i=0;i<n-1;i++){
+                level[i]->next=level[i+1];
+            }
+            level.clear();
+            if(!q.empty()){
+                q.push(NULL);
+            }
+        }
+        else{
+            level.push_back(temp);
+            if(temp->left){
+                q.push(temp->left);
+            }
+            if(temp->right){
+                q.push(temp->right);
+            }
+        }
+    }
+}
