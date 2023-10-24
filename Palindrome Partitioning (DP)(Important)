@@ -1,0 +1,35 @@
+class Solution{
+    bool ispalindrome(string& s){
+        int i=0;
+        int j=s.size()-1;
+        while(i<=j){
+            if(s[i]!=s[j]){
+                return false;
+            }
+            i++, j--;
+        }
+        return true;
+    }
+    int solve(string& str, vector<int>& dp, int n, int i){
+        if(i>=n) return 0;
+        if(dp[i]!=-1) return dp[i];
+        string temp="";
+        int mincost=INT_MAX;
+        for(int j=i;j<n;j++){
+            temp+=str[j];
+            if(ispalindrome(temp)){
+                int cost=1+solve(str, dp, n, j+1);
+                mincost=min(mincost, cost);
+            }
+        }
+        return dp[i]=mincost;
+    }
+public:
+    int palindromicPartition(string str)
+    {
+        // code here
+        int n=str.size();
+        vector<int>dp(n+1, -1);
+        return solve(str, dp, n, 0)-1;
+    }
+};
